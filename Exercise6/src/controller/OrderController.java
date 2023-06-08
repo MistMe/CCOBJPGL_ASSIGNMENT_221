@@ -19,30 +19,50 @@ import javafx.scene.Scene;
 
 public class OrderController implements Initializable {
 
-    static BedroomLamp blamp = new BedroomLamp();
-    static CeilingLamp clamp = new CeilingLamp();
-    static WallLamp wlamp = new WallLamp();
-
     @FXML
-    Label name1, name2, name3, price1, price2, price3, qty1, qty2, qty3, amt2, amt3, total;
-    double amt1;
+    Label name1, name2, name3, price1, price2, price3, qty1, qty2, qty3, lineAmount1, lineAmount2, lineAmount3, total;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         
-        if (OrderController.blamp.getProductStatus()) {
+         if (HomeController.blamp.getProductStatus()) {
             name1.setText(HomeController.blamp.getProductName());
-            price1.setText(Double.toString(HomeController.blamp.getProductPrice()));
             qty1.setText(Double.toString(HomeController.blamp.getProductQuantity()));
+            lineAmount1.setText(Double.toString(HomeController.blamp.getProductPrice() * HomeController.blamp.getProductQuantity()));
             name1.setVisible(true);
-            price1.setVisible(true);
+            lineAmount1.setVisible(true);
             qty1.setVisible(true);
 
-            amt1 = HomeController.blamp.getProductPrice() * HomeController.blamp.getProductQuantity();
         }
         
+        if (HomeController.clamp.getProductStatus()) {
+            name2.setText(HomeController.clamp.getProductName());
+            qty2.setText(Double.toString(HomeController.clamp.getProductQuantity()));
+            lineAmount2.setText(Double.toString(HomeController.clamp.getProductPrice() * HomeController.clamp.getProductQuantity()));
+            name2.setVisible(true);
+            lineAmount2.setVisible(true);
+            qty2.setVisible(true);
+        }
         
+        if (HomeController.wlamp.getProductStatus()) {
+            name3.setText(HomeController.wlamp.getProductName());
+            qty3.setText(Double.toString(HomeController.wlamp.getProductQuantity()));
+            lineAmount3.setText(Double.toString(HomeController.wlamp.getProductPrice() * HomeController.wlamp.getProductQuantity()));
+            name3.setVisible(true);
+            lineAmount3.setVisible(true);
+            qty3.setVisible(true);
+        }
+
+        double amt1 = HomeController.blamp.getProductPrice() * HomeController.blamp.getProductQuantity();
+        double amt2 =HomeController.clamp.getProductPrice() * HomeController.clamp.getProductQuantity();
+        double amt3 =HomeController.wlamp.getProductPrice() * HomeController.wlamp.getProductQuantity();
+
+        double finalamt = amt1 + amt2 + amt3;
+        Total.setText(Double.toString(finalamt));
+
+        Total.setVisible(true);
+
     }
 
 }
